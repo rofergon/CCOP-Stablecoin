@@ -9,8 +9,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * Inspirado en Ampleforth UFragments.
  */
 contract AlgorithmicStablecoin is IERC20Metadata, Ownable {
-    string public constant name        = "Algo USD";
-    string public constant symbol      = "aUSD";
+    string public constant name        = "Virtual COP";
+    string public constant symbol      = "VCOP";
     uint8  public constant decimals    = 18;
 
     // Total gons = 2^128 — mantiene precisión al escalar

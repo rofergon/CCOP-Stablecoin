@@ -20,17 +20,21 @@ contract MockOracle is IOracle {
         _usdToCopRate = newRate;
     }
     
-    /// @notice Retorna el precio de la stablecoin en USD (normalmente 1 USD)
-    /// @return Precio en USD con 18 decimales
+    /// @notice Retorna el precio de la stablecoin en COP (normalmente 1 COP)
+    /// @return Precio en COP con 18 decimales
     function getPrice() external view override returns (uint256) {
-        // Si la tasa es menor a 4200 (ej: 4000 COP/USD), el token vale más de 1 USD
-        // Si la tasa es mayor a 4200 (ej: 4400 COP/USD), el token vale menos de 1 USD
+        // La tasa base oficial de VCOP es 1:1 con el peso colombiano
+        // Este oráculo utiliza la tasa USD/COP para calcular el valor de VCOP en COP
         
-        // Base: 4200e18 COP = 1e18 USD
-        // Ejemplo: si ahora 4000e18 COP = 1e18 USD, entonces 1 aUSD = (4200/4000) USD = 1.05 USD
+        // Ejemplo: si el tipo de cambio es 4200 COP/USD, entonces 1 VCOP debe valer 1 COP
+        // Si el USD se fortalece (ej: 4400 COP/USD), 1 VCOP sigue valiendo 1 COP
+        // Si el USD se debilita (ej: 4000 COP/USD), 1 VCOP sigue valiendo 1 COP
         
-        // Convertir usando regla de tres: precio = (tasa base / tasa actual) * PRECISION
-        uint256 baseRate = 4200e18; // Tasa base oficial
+        // En este oráculo de prueba, simulamos desviaciones del valor ideal:
+        // - Si _usdToCopRate < 4200, VCOP vale más de 1 COP (inflación del VCOP)
+        // - Si _usdToCopRate > 4200, VCOP vale menos de 1 COP (deflación del VCOP)
+        
+        uint256 baseRate = 4200e18; // Tasa base oficial: 4200 COP = 1 USD
         return (baseRate * PRICE_PRECISION) / _usdToCopRate;
     }
     

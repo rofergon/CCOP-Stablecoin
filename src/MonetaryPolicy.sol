@@ -7,11 +7,11 @@ import "./interfaces/IOracle.sol";
 
 /**
  * @title MonetaryPolicy — decide cuánto re‑basar en cada época.
- * Estrategia: TWAP ≥ $1.05 ⇒ expandir 1%; TWAP ≤ $0.97 ⇒ contraer 1%.
+ * Estrategia: TWAP ≥ 1.05 COP ⇒ expandir 1%; TWAP ≤ 0.97 COP ⇒ contraer 1%.
  */
 contract MonetaryPolicy is Ownable {
     uint256 public constant EPOCH_DURATION = 2 hours;
-    uint256 public constant PERCENT = 1e4; // 100.00 %
+    uint256 public constant PERCENT = 1e4; // 100.00 %
 
     AlgorithmicStablecoin public immutable token;
     IOracle               public oracle;
@@ -31,13 +31,13 @@ contract MonetaryPolicy is Ownable {
         require(block.timestamp >= lastEpochStart + EPOCH_DURATION, "epoch not ended");
         lastEpochStart = block.timestamp;
 
-        uint256 price = oracle.getPrice(); // 1e18 = 1 USD
+        uint256 price = oracle.getPrice(); // 1e18 = 1 COP
         int256 delta;
 
         if (price > 1.05e18) {
-            delta = int256(token.totalSupply() / 100); // +1 %
+            delta = int256(token.totalSupply() / 100); // +1 %
         } else if (price < 0.97e18) {
-            delta = -int256(token.totalSupply() / 100); // −1 %
+            delta = -int256(token.totalSupply() / 100); // −1 %
         } else {
             delta = 0;
         }

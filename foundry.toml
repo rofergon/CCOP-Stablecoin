@@ -6,8 +6,23 @@ remappings = [
     "@openzeppelin/=lib/openzeppelin-contracts/",
     "forge-std/=lib/forge-std/src/"
 ]
-solc_version = "0.8.24"
+solc_version = "0.8.26"
 optimizer = true
 optimizer_runs = 200
+# Permitir diferentes versiones en archivos importados
+allow_paths = ["./lib"]
+ignored_error_codes = ["license", "code-size"]
+via_ir = false
+
+[profile.pool]
+src = "script"
+solc_version = "0.8.26"
+allow_paths = ["./lib"]
+
+[rpc_endpoints]
+base_sepolia = "${BASE_SEPOLIA_RPC_URL}"
+
+[etherscan]
+base_sepolia = { key = "${BASESCAN_API_KEY}", url = "https://api-sepolia.basescan.org/api" }
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
