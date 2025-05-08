@@ -1,4 +1,4 @@
-# Algo COP - Stablecoin Algorítmica para el Peso Colombiano
+CCOP - Stablecoin Algorítmica para el Peso Colombiano
 
 ![Status](https://img.shields.io/badge/status-prototipo-yellow)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.24-blue)
