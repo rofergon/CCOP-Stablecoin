@@ -19,11 +19,11 @@ contract CreateUniswapV4Pool is Script {
     address constant VCOP_ADDRESS = 0x08544C4729aD52612b9A9fC20667afD3A81dB0ce;
     
     // USDC Address on Sepolia (common test token)
-    address constant USDC_ADDRESS = 0x94a9D9AC8a22534E3FaCA9F4e7F2E2cf85d5E4C8;
+    address constant USDC_ADDRESS = 0x036CbD53842c5426634e7929541eC2318f3dCF7e;
     
     // Base Sepolia Uniswap v4 addresses (from official docs)
     address constant POOL_MANAGER_ADDRESS = 0x05E73354cFDd6745C338b50BcFDfA3Aa6fA03408;
-    address constant POSITION_MANAGER_ADDRESS = 0x4b2c77d209d3405f41a037ec6c77f7f5b8e2ca80;
+    address constant POSITION_MANAGER_ADDRESS = 0x4B2C77d209D3405F41a037Ec6c77F7F5b8e2ca80;
     address constant PERMIT2_ADDRESS = 0x000000000022D473030F116dDEE9F6B43aC78BA3;
 
     // Pool parameters
@@ -65,7 +65,7 @@ contract CreateUniswapV4Pool is Script {
         
         // Get contract instances
         IPoolManager poolManager = IPoolManager(POOL_MANAGER_ADDRESS);
-        PositionManager positionManager = PositionManager(POSITION_MANAGER_ADDRESS);
+        PositionManager positionManager = PositionManager(payable(POSITION_MANAGER_ADDRESS));
         
         // Setup multicall parameters for creating a pool and adding liquidity
         bytes[] memory multicallData = new bytes[](2);
